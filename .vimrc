@@ -9,7 +9,7 @@ endif
 call plug#begin()
 Plug 'embear/vim-localvimrc'
 Plug 'tpope/vim-sensible'
-Plug 'itchyny/lightline.vim'
+" Plug 'itchyny/lightline.vim'
 Plug 'joshdick/onedark.vim'
 Plug 'ap/vim-buftabline'
 Plug 'airblade/vim-gitgutter'
@@ -23,6 +23,10 @@ Plug 'lepture/vim-jinja'
 Plug 'pangloss/vim-javascript'
 Plug 'alvan/vim-closetag'
 Plug 'maxmellon/vim-jsx-pretty'
+" Plug 'vim-airline/vim-airline'
+" Plug 'vim-airline/vim-airline-themes'
+" Plug 'zefei/vim-wintabs'
+" Plug 'zefei/vim-wintabs-powerline'
 call plug#end()
 
 filetype plugin indent on
@@ -96,8 +100,12 @@ colorscheme onedark
 filetype on
 filetype plugin indent on
 
+" buftabline
+let g:buftabline_numbers = 1  " show buffer number
+
 " lightline
 set noshowmode
+set encoding=utf8
 let g:lightline = { 'colorscheme': 'onedark' }
 
 " code folding
@@ -199,3 +207,52 @@ endfunction
 inoremap <special> <expr> <Esc>[200~ XTermPasteBegin()
 let b:ale_linters = {'python': ['flake8']}
 au BufNewFile,BufRead Jenkinsfile setf groovy
+
+map <C-n> :call NERDTreeToggleAndRefresh()<CR>
+
+function NERDTreeToggleAndRefresh()
+  :NERDTreeToggle
+  if g:NERDTree.IsOpen()
+    :NERDTreeRefreshRoot
+  endif
+endfunction
+
+" Enable the list of buffers
+" let g:airline#extensions#tabline#enabled = 1
+
+" Show just the filename
+" let g:airline#extensions#tabline#fnamemod = ':t'
+
+" This allows buffers to be hidden if you've modified a buffer.
+" This is almost a must if you wish to use buffers in this way.
+set hidden
+
+" To open a new empty buffer
+" This replaces :tabnew which I used to bind to this mapping
+nmap <leader>T :enew<cr>
+            \n
+" Move to the next buffer
+nmap <leader>l :bnext<CR>
+
+" Move to the previous buffer
+nmap <leader>h :bprevious<CR>
+
+" Close the current buffer and move to the previous one
+" This replicates the idea of closing a tab
+nmap <leader>bq :bp <BAR> bd #<CR>
+
+" Show all open buffers and their status
+nmap <leader>bl :ls<CR>
+
+let Tlist_Ctags_Cmd = '/usr/bin/ctags'
+
+nnoremap ! :b1<CR>
+nnoremap @ :b2<CR>
+nnoremap # :b3<CR>
+nnoremap $ :b4<CR>
+nnoremap % :b5<CR>
+nnoremap ^ :b6<CR>
+nnoremap & :b7<CR>
+nnoremap * :b8<CR>
+nnoremap ( :b9<CR>
+nnoremap ) :b10<CR>
